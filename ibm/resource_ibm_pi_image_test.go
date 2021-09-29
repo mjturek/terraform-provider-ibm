@@ -34,6 +34,7 @@ func TestAccIBMPIImagebasic(t *testing.T) {
 		},
 	})
 }
+
 func testAccCheckIBMPIImageDestroy(s *terraform.State) error {
 
 	sess, err := testAccProvider.Meta().(ClientSession).IBMPISession()
@@ -45,9 +46,12 @@ func testAccCheckIBMPIImageDestroy(s *terraform.State) error {
 			continue
 		}
 		parts, err := idParts(rs.Primary.ID)
+		if err != nil {
+			return err
+		}
 		powerinstanceid := parts[0]
-		networkC := st.NewIBMPIImageClient(sess, powerinstanceid)
-		_, err = networkC.Get(parts[1], powerinstanceid)
+		imageC := st.NewIBMPIImageClient(sess, powerinstanceid)
+		_, err = imageC.Get(parts[1], powerinstanceid)
 		if err == nil {
 			return fmt.Errorf("PI Image still exists: %s", rs.Primary.ID)
 		}
@@ -79,11 +83,11 @@ func testAccCheckIBMPIImageExists(n string) resource.TestCheckFunc {
 		powerinstanceid := parts[0]
 		client := st.NewIBMPIImageClient(sess, powerinstanceid)
 
-		image, err := client.Get(parts[1], powerinstanceid)
+		_, err = client.Get(parts[1], powerinstanceid)
 		if err != nil {
 			return err
 		}
-		parts[1] = *image.ImageID
+
 		return nil
 
 	}
@@ -96,5 +100,39 @@ func testAccCheckIBMPIImageConfig(name string) string {
 		pi_image_id         = "cfc02954-8f6f-4e6b-96ae-40b24c90bd54"
 		pi_cloud_instance_id = "%s"
 	  }
+	`, name, pi_cloud_instance_id)
+}
+
+func TestAccIBMPIImageCOSPublicImport(t *testing.T) {
+	imageRes := "ibm_pi_image.cos_image"
+	name := fmt.Sprintf("tf-pi-image-%d", acctest.RandIntRange(10, 100))
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckIBMPIImageDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccCheckIBMPIImageCOSPublicConfig(name),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckIBMPIImageExists(imageRes),
+					resource.TestCheckResourceAttr(imageRes, "pi_image_name", name),
+					resource.TestCheckResourceAttrSet(imageRes, "image_id"),
+				),
+			},
+		},
+	})
+}
+
+func testAccCheckIBMPIImageCOSPublicConfig(name string) string {
+	return fmt.Sprintf(`
+	resource "ibm_pi_image" "cos_image" {
+		pi_image_name       = "%s"
+		pi_cloud_instance_id = "%s"
+		pi_image_bucket_name = "ocp4-images-public-bucket"
+		pi_image_bucket_access = "public"
+		pi_image_bucket_region = "us-south"
+		pi_image_bucket_file_name = "rhcos-48-07222021.ova.gz"
+		pi_image_storage_type = "tier1"
+	}
 	`, name, pi_cloud_instance_id)
 }

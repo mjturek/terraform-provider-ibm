@@ -47,3 +47,7 @@ require (
 	golang.org/x/tools v0.0.0-20210107193943-4ed967dd8eff // indirect
 	gotest.tools v2.2.0+incompatible
 )
+
+replace github.com/softlayer/softlayer-go v1.0.3 => github.com/IBM-Cloud/softlayer-go v1.0.3-tf
+
+replace github.com/IBM-Cloud/power-go-client v1.0.55 => github.com/yussufsh/power-go-client v1.99.2
