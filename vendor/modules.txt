@@ -46,9 +46,10 @@ github.com/IBM-Cloud/bluemix-go/rest
 github.com/IBM-Cloud/bluemix-go/session
 github.com/IBM-Cloud/bluemix-go/trace
 github.com/IBM-Cloud/bluemix-go/utils
-# github.com/IBM-Cloud/power-go-client v1.0.55
+# github.com/IBM-Cloud/power-go-client v1.0.55 => github.com/yussufsh/power-go-client v1.99.4
 ## explicit
 github.com/IBM-Cloud/power-go-client/clients/instance
+github.com/IBM-Cloud/power-go-client/errors
 github.com/IBM-Cloud/power-go-client/helpers
 github.com/IBM-Cloud/power-go-client/ibmpisession
 github.com/IBM-Cloud/power-go-client/power/client
@@ -62,15 +63,20 @@ github.com/IBM-Cloud/power-go-client/power/client/p_cloud_cloud_connections
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_events
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_images
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_instances
+github.com/IBM-Cloud/power-go-client/power/client/p_cloud_jobs
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_networks
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_p_vm_instances
+github.com/IBM-Cloud/power-go-client/power/client/p_cloud_placement_groups
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_s_a_p
+github.com/IBM-Cloud/power-go-client/power/client/p_cloud_service_d_h_c_p
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_snapshots
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_storage_capacity
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_system_pools
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_tasks
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_tenants
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_tenants_ssh_keys
+github.com/IBM-Cloud/power-go-client/power/client/p_cloud_v_p_n_connections
+github.com/IBM-Cloud/power-go-client/power/client/p_cloud_v_p_n_policies
 github.com/IBM-Cloud/power-go-client/power/client/p_cloud_volumes
 github.com/IBM-Cloud/power-go-client/power/client/service_bindings
 github.com/IBM-Cloud/power-go-client/power/client/service_instances
@@ -634,7 +640,7 @@ github.com/rcrowley/go-metrics
 github.com/satori/go.uuid
 # github.com/sergi/go-diff v1.1.0
 github.com/sergi/go-diff/diffmatchpatch
-# github.com/softlayer/softlayer-go v1.0.3
+# github.com/softlayer/softlayer-go v1.0.3 => github.com/IBM-Cloud/softlayer-go v1.0.3-tf
 ## explicit
 github.com/softlayer/softlayer-go/config
 github.com/softlayer/softlayer-go/datatypes
@@ -944,3 +950,4 @@ gotest.tools/assert/cmp
 gotest.tools/internal/difflib
 gotest.tools/internal/format
 gotest.tools/internal/source
+# github.com/IBM-Cloud/power-go-client => github.com/yussufsh/power-go-client v1.99.4

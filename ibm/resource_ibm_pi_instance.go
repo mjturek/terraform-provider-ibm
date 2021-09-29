@@ -159,10 +159,10 @@ func resourceIBMPIInstance() *schema.Resource {
 				Computed:    true,
 				Description: "PIN Policy of the Instance",
 			},
-			helpers.PIInstanceImageName: {
+			helpers.PIInstanceImageId: {
 				Type:        schema.TypeString,
 				Required:    true,
-				Description: "PI instance image name",
+				Description: "PI instance image id",
 			},
 			helpers.PIInstanceProcessors: {
 				Type:        schema.TypeFloat,
@@ -300,7 +300,11 @@ func resourceIBMPIInstanceCreate(d *schema.ResourceData, meta interface{}) error
 	if r, ok := d.GetOk(helpers.PIInstanceReplicationScheme); ok {
 		replicationNamingScheme = r.(string)
 	}
-	imageid := d.Get(helpers.PIInstanceImageName).(string)
+	var migratable bool
+	if m, ok := d.GetOk("pi_migratable"); ok {
+		migratable = m.(bool)
+	}
+	imageid := d.Get(helpers.PIInstanceImageId).(string)
 	processortype := d.Get(helpers.PIInstanceProcType).(string)
 
 	var pinpolicy string
@@ -426,7 +430,7 @@ func resourceIBMPIInstanceRead(d *schema.ResourceData, meta interface{}) error {
 		d.Set("instance_id", powervmdata.PvmInstanceID)
 	}
 	d.Set(helpers.PIInstanceName, powervmdata.ServerName)
-	d.Set(helpers.PIInstanceImageName, powervmdata.ImageID)
+	d.Set(helpers.PIInstanceImageId, powervmdata.ImageID)
 	var networks []string
 	networks = make([]string, 0)
 	if powervmdata.Networks != nil {
