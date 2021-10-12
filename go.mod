@@ -47,3 +47,5 @@ require (
 	golang.org/x/tools v0.0.0-20210107193943-4ed967dd8eff // indirect
 	gotest.tools v2.2.0+incompatible
 )
+
+replace github.com/IBM-Cloud/power-go-client => github.com/mjturek/power-go-client v1.0.57-0.20211014165102-c6ddea0068be

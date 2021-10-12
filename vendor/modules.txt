@@ -46,9 +46,10 @@ github.com/IBM-Cloud/bluemix-go/rest
 github.com/IBM-Cloud/bluemix-go/session
 github.com/IBM-Cloud/bluemix-go/trace
 github.com/IBM-Cloud/bluemix-go/utils
-# github.com/IBM-Cloud/power-go-client v1.0.55
+# github.com/IBM-Cloud/power-go-client v1.0.55 => github.com/mjturek/power-go-client v1.0.56-0.20211013185941-ad8c52172e96
 ## explicit
 github.com/IBM-Cloud/power-go-client/clients/instance
+github.com/IBM-Cloud/power-go-client/errors
 github.com/IBM-Cloud/power-go-client/helpers
 github.com/IBM-Cloud/power-go-client/ibmpisession
 github.com/IBM-Cloud/power-go-client/power/client
@@ -944,3 +945,4 @@ gotest.tools/assert/cmp
 gotest.tools/internal/difflib
 gotest.tools/internal/format
 gotest.tools/internal/source
+# github.com/IBM-Cloud/power-go-client => github.com/mjturek/power-go-client v1.0.56-0.20211013185941-ad8c52172e96
