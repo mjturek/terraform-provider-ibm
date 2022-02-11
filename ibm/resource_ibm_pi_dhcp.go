@@ -51,6 +51,12 @@ func resourceIBMPIDhcp() *schema.Resource {
 				Description: "PI cloud instance ID",
 				ForceNew:    true,
 			},
+			helpers.PICloudConnectionId: {
+				Type:        schema.TypeString,
+				Optional:    true,
+				Description: "The cloud connection uuid to connect with DHCP private network",
+				ForceNew:    true,
+			},
 			//Computed Attributes
 			PIDhcpId: {
 				Type:        schema.TypeString,
@@ -98,8 +104,13 @@ func resourceIBMPIDhcpCreate(d *schema.ResourceData, meta interface{}) error {
 
 	cloudInstanceID := d.Get(helpers.PICloudInstanceId).(string)
 
+	body := &models.DHCPServerCreate{}
+	if cloudConnectionID, ok := d.GetOk(helpers.PICloudConnectionId); ok {
+		body.CloudConnectionID = cloudConnectionID.(string)
+	}
+
 	client := st.NewIBMPIDhcpClient(sess, cloudInstanceID)
-	dhcpServer, err := client.CreateWithContext(context.TODO(), cloudInstanceID)
+	dhcpServer, err := client.Create(body)
 	if err != nil {
 		log.Printf("[DEBUG] create DHCP failed %v", err)
 		return fmt.Errorf(errors.CreateDchpOperationFailed, cloudInstanceID, err)

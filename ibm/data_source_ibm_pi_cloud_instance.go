@@ -4,6 +4,8 @@
 package ibm
 
 import (
+	"context"
+
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/validation"
 
@@ -112,7 +114,7 @@ func dataSourceIBMPICloudInstanceRead(d *schema.ResourceData, meta interface{}) 
 	}
 
 	powerinstanceid := d.Get(helpers.PICloudInstanceId).(string)
-	cloud_instance := instance.NewIBMPICloudInstanceClient(sess, powerinstanceid)
+	cloud_instance := instance.NewIBMPICloudInstanceClient(context.TODO(), sess, powerinstanceid)
 	cloud_instance_data, err := cloud_instance.Get(powerinstanceid)
 
 	if err != nil {

@@ -4,6 +4,8 @@
 package ibm
 
 import (
+	"context"
+
 	"github.com/IBM-Cloud/power-go-client/helpers"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 
@@ -72,8 +74,8 @@ func dataSourceIBMPIImagesRead(d *schema.ResourceData, meta interface{}) error {
 
 	powerinstanceid := d.Get(helpers.PICloudInstanceId).(string)
 
-	imageC := instance.NewIBMPIImageClient(sess, powerinstanceid)
-	imagedata, err := imageC.Get(d.Get(helpers.PIImageName).(string), powerinstanceid)
+	imageC := instance.NewIBMPIImageClient(context.TODO(), sess, powerinstanceid)
+	imagedata, err := imageC.Get(d.Get(helpers.PIImageName).(string))
 
 	if err != nil {
 		return err

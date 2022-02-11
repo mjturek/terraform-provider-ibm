@@ -121,7 +121,7 @@ func dataSourceIBMPICloudConnectionRead(d *schema.ResourceData, meta interface{}
 
 	cloudInstanceID := d.Get(helpers.PICloudInstanceId).(string)
 	cloudConnectionName := d.Get(helpers.PICloudConnectionName).(string)
-	client := instance.NewIBMPICloudConnectionClient(sess, cloudInstanceID)
+	client := instance.NewIBMPICloudConnectionClient(context.TODO(), sess, cloudInstanceID)
 
 	// Get API does not work with name for Cloud Connection hence using GetAll (max 2)
 	// TODO: Uncomment Get call below when avaiable and remove GetAll
@@ -130,7 +130,7 @@ func dataSourceIBMPICloudConnectionRead(d *schema.ResourceData, meta interface{}
 	// 	log.Printf("[DEBUG] get cloud connection failed %v", err)
 	// 	return fmt.Errorf(errors.GetCloudConnectionOperationFailed, cloudConnectionName, err)
 	// }
-	cloudConnections, err := client.GetAllWithContext(context.TODO(), cloudInstanceID)
+	cloudConnections, err := client.GetAll()
 	if err != nil {
 		log.Printf("[DEBUG] get cloud connections failed %v", err)
 		return fmt.Errorf("failed to perform get cloud connections operation with error %v", err)

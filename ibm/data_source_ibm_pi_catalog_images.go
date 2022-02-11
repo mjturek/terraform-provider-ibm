@@ -4,6 +4,7 @@
 package ibm
 
 import (
+	"context"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
@@ -129,8 +130,8 @@ func dataSourceIBMPICatalogImagesRead(d *schema.ResourceData, meta interface{}) 
 		vtl = v.(bool)
 	}
 
-	imageC := instance.NewIBMPIImageClient(sess, powerinstanceid)
-	result, err := imageC.GetAllStockImages(powerinstanceid, sap, vtl)
+	imageC := instance.NewIBMPIImageClient(context.TODO(), sess, powerinstanceid)
+	result, err := imageC.GetAllStockImages(sap, vtl)
 	if err != nil {
 		return err
 	}

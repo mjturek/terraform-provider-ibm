@@ -81,8 +81,8 @@ func dataSourceIBMPIDhcpRead(d *schema.ResourceData, meta interface{}) error {
 	cloudInstanceID := d.Get(helpers.PICloudInstanceId).(string)
 	dhcpID := d.Get(PIDhcpId).(string)
 
-	client := st.NewIBMPIDhcpClient(sess, cloudInstanceID)
-	dhcpServer, err := client.GetWithContext(context.TODO(), dhcpID, cloudInstanceID)
+	client := st.NewIBMPIDhcpClient(context.TODO(), sess, cloudInstanceID)
+	dhcpServer, err := client.Get(dhcpID)
 	if err != nil {
 		log.Printf("[DEBUG] get DHCP failed %v", err)
 		return fmt.Errorf(errors.GetDhcpOperationFailed, dhcpID, err)
