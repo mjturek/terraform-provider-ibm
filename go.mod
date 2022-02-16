@@ -50,4 +50,4 @@ require (
 
 replace github.com/softlayer/softlayer-go v1.0.3 => github.com/IBM-Cloud/softlayer-go v1.0.3-tf
 
-replace github.com/IBM-Cloud/power-go-client => github.com/yussufsh/power-go-client v1.99.4
+replace github.com/IBM-Cloud/power-go-client => github.com/yussufsh/power-go-client v1.99.5
